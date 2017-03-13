@@ -7,12 +7,20 @@ public class RoomDTO {
     long id;
     String name;
     String description;
-    long categoryID;
+    long categoryId;
+    public RoomDTO()
+    {
+
+    }
     public RoomDTO(Room room) {
         this.id = room.getId();
         this.name = room.getName();
         this.description = room.getDescription();
-        this.categoryID = 0;
+        this.categoryId = room.getRoomCategory().getId();
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public long getId() {
@@ -39,5 +47,8 @@ public class RoomDTO {
         this.description = description;
     }
 
+    public long getCategoryId() {
+        return categoryId;
+    }
 
 }

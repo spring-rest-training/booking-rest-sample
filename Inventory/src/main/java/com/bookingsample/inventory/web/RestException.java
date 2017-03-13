@@ -6,6 +6,7 @@ package com.bookingsample.inventory.web;
 public class RestException extends RuntimeException
 {
     public static final int NOT_FOUND = 1;
+    public static final int RECORD_EXIST = 2;
     int errorCode;
     String description;
 

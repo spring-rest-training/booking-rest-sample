@@ -28,17 +28,19 @@ public class WebApplication {
      * Just mock values in order to work without real database..
      * @param service
      */
-    private static void addRooms(InventoryService service) {
+    public static void addRooms(InventoryService service) {
         RoomCategory normal = new RoomCategory();
         normal.setDescription("Normal room");
         normal.setName("Normal");
         normal.setPricing( new Pricing(PricingModel.FIXED));
         normal.setId(1);
+        service.addCategory(normal);
         RoomCategory sliding = new RoomCategory();
         sliding.setDescription("Sliding room");
         sliding.setName("Sliding room");
         sliding.setPricing(new Pricing(PricingModel.SLIDING));
         sliding.setId(2);
+        service.addCategory(sliding);
         service.addRoom(new Room(1 , normal , "Standart room 1" , "nothing special"));
         service.addRoom(new Room(2 , normal , "Standart room 2" , "why not"));
         service.addRoom(new Room(3 , sliding , "Double Size" , "for couples"));

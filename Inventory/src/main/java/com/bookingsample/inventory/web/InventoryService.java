@@ -1,6 +1,7 @@
 package com.bookingsample.inventory.web;
 
 import com.bookingsample.inventory.data.Room;
+import com.bookingsample.inventory.data.RoomCategory;
 
 import java.util.List;
 
@@ -14,4 +15,10 @@ public interface InventoryService {
     List<Room> getRoomsByCategory(long categoryID);
 
     void addRoom(Room room);
+
+    long newRoomID();
+
+    void addCategory(RoomCategory roomCategory);
+
+    RoomCategory getCategory(long categoryID);
 }

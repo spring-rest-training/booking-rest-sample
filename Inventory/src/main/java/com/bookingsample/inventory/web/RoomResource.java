@@ -35,4 +35,21 @@ public class RoomResource {
         List<Room> roomList = inventoryService.getRoomsByCategory(categoryID);
         return roomList.stream().map(RoomDTO::new).collect(Collectors.toList());
     }
+    @RequestMapping(method = RequestMethod.POST)
+    public ApiResponse addRoom(@RequestBody RoomDTO rDto)
+    {
+        try {
+            Room room = createRoom(rDto);
+            return ApiResponse.success(room);
+        }catch (RestException e)
+        {
+            return ApiResponse.error(e);
+        }
+    }
+
+    private Room createRoom(RoomDTO rDto) {
+        Room room = new Room(inventoryService.newRoomID() , inventoryService.getCategory(rDto.getCategoryId()) , rDto.getName() , rDto.getDescription());
+        inventoryService.addRoom(room);
+        return room;
+    }
 }

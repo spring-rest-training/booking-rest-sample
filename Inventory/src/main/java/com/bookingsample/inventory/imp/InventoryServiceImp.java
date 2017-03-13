@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 @Component
 public class InventoryServiceImp implements InventoryService {
     List<Room> rooms = new ArrayList<>();
+    List<RoomCategory> categories = new ArrayList<>();
+
     @Override
     public Room getRoom(long id) {
         return rooms.stream().filter(o->o.getId() == id).findFirst()
@@ -32,5 +34,23 @@ public class InventoryServiceImp implements InventoryService {
     @Override
     public void addRoom(Room room) {
         rooms.add(room);
+    }
+
+    @Override
+    public long newRoomID() {
+        return rooms.stream().map(o->o.getId()).max((a,b)->a.compareTo(b)).get()+1;
+    }
+
+    @Override
+    public void addCategory(RoomCategory roomCategory) {
+        if(categories.stream().anyMatch(o->o.getId() == roomCategory.getId()))
+            throw new RestException(RestException.RECORD_EXIST , "Category with given id already exists");
+        categories.add(roomCategory);
+    }
+
+    @Override
+    public RoomCategory getCategory(long categoryID) {
+        return categories.stream().filter(o->o.getId() == categoryID).findFirst().
+                orElseThrow(()->new RestException(RestException.NOT_FOUND , "No category with given id:"+categoryID));
     }
 }
