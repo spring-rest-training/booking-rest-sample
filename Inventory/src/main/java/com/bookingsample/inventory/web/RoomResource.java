@@ -1,6 +1,7 @@
 package com.bookingsample.inventory.web;
 import com.bookingsample.inventory.data.Room;
 import com.bookingsample.inventory.data.RoomDTO;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,8 +39,15 @@ public class RoomResource {
     @RequestMapping(method = RequestMethod.POST)
     public ApiResponse addRoom(@RequestBody RoomDTO rDto)
     {
+        String name = rDto.getName();
+        long categoryId = rDto.getCategoryId();
+        String description = rDto.getDescription();
+        return addRoomSafe(name, categoryId, description);
+    }
+
+    private ApiResponse addRoomSafe(String name, long categoryId, String description) {
         try {
-            Room room = createRoom(rDto);
+            Room room = createRoom(name , categoryId , description);
             return ApiResponse.success(room);
         }catch (RestException e)
         {
@@ -47,8 +55,16 @@ public class RoomResource {
         }
     }
 
-    private Room createRoom(RoomDTO rDto) {
-        Room room = new Room(inventoryService.newRoomID() , inventoryService.getCategory(rDto.getCategoryId()) , rDto.getName() , rDto.getDescription());
+    @RequestMapping(method = RequestMethod.POST , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ApiResponse addRoom(String name , String description , long roomCategoryId)
+    {
+        return addRoomSafe(name ,roomCategoryId , description);
+    }
+
+
+
+    private Room createRoom(String name, long categoryId, String description) {
+        Room room = new Room(inventoryService.newRoomID() , inventoryService.getCategory(categoryId) , name , description);
         inventoryService.addRoom(room);
         return room;
     }
