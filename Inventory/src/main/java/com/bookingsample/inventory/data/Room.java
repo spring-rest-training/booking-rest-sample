@@ -9,6 +9,19 @@ import javax.persistence.*;
 public class Room {
     long id;
     RoomCategory roomCategory;
+
+    public void setRoomCategory(RoomCategory roomCategory) {
+        this.roomCategory = roomCategory;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     String name;
     String description;
 

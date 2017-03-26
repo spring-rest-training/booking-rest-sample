@@ -2,6 +2,8 @@ package com.bookingsample.inventory.web;
 
 import com.bookingsample.inventory.data.Room;
 
+import static com.bookingsample.inventory.web.RestException.UNEXPECTED_ERROR;
+
 /**
  * Created by davut on 12.03.2017.
  */
@@ -20,6 +22,12 @@ public class ApiResponse {
     public static ApiResponse error(RestException e) {
         ApiResponse response = new ApiResponse();
         response.error = new ApiError(e.getErrorCode(), e.getDescription());
+        return response;
+    }
+
+    public static ApiResponse error(Exception e) {
+        ApiResponse response = new ApiResponse();
+        response.error = new ApiError(UNEXPECTED_ERROR, "Undefined error occured");
         return response;
     }
 

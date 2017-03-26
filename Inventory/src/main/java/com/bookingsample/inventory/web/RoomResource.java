@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -43,6 +44,28 @@ public class RoomResource {
         long categoryId = rDto.getCategoryId();
         String description = rDto.getDescription();
         return addRoomSafe(name, categoryId, description);
+    }
+
+    @RequestMapping( method = RequestMethod.PUT , value = "/{roomId}")
+    public ApiResponse updateRoom(@PathVariable(name = "roomId") long roomId, @RequestBody RoomDTO roomDTO)
+    {
+        return invokeSafe(o -> {
+            Room r = inventoryService.updateRoom(roomId , roomDTO);
+            return ApiResponse.success(r);
+        });
+    }
+
+    private ApiResponse invokeSafe(Function<Void, ApiResponse> func)
+    {
+        try {
+            return func.apply(null);
+        }catch (RestException e)
+        {
+            return ApiResponse.error(e);
+        }catch (Exception e)
+        {
+            return ApiResponse.error(e);
+        }
     }
 
     private ApiResponse addRoomSafe(String name, long categoryId, String description) {

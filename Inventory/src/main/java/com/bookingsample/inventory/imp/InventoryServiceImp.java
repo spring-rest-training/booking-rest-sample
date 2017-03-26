@@ -4,6 +4,7 @@ package com.bookingsample.inventory.imp;
 
 import com.bookingsample.inventory.data.Room;
 import com.bookingsample.inventory.data.RoomCategory;
+import com.bookingsample.inventory.data.RoomDTO;
 import com.bookingsample.inventory.web.InventoryService;
 import com.bookingsample.inventory.web.RestException;
 import org.springframework.stereotype.Component;
@@ -52,5 +53,13 @@ public class InventoryServiceImp implements InventoryService {
     public RoomCategory getCategory(long categoryID) {
         return categories.stream().filter(o->o.getId() == categoryID).findFirst().
                 orElseThrow(()->new RestException(RestException.NOT_FOUND , "No category with given id:"+categoryID));
+    }
+
+    @Override
+    public Room updateRoom(long roomId, RoomDTO roomDTO) {
+        Room r = getRoom(roomId);
+        r.setName(roomDTO.getName());
+        r.setDescription(roomDTO.getDescription());
+        return r;
     }
 }

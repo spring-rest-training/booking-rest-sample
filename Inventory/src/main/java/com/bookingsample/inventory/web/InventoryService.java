@@ -2,6 +2,7 @@ package com.bookingsample.inventory.web;
 
 import com.bookingsample.inventory.data.Room;
 import com.bookingsample.inventory.data.RoomCategory;
+import com.bookingsample.inventory.data.RoomDTO;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface InventoryService {
     void addCategory(RoomCategory roomCategory);
 
     RoomCategory getCategory(long categoryID);
+
+    Room updateRoom(long roomId, RoomDTO roomDTO);
 }

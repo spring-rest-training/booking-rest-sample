@@ -7,6 +7,7 @@ public class RestException extends RuntimeException
 {
     public static final int NOT_FOUND = 1;
     public static final int RECORD_EXIST = 2;
+    public static final int UNEXPECTED_ERROR = 999;
     int errorCode;
     String description;
 
