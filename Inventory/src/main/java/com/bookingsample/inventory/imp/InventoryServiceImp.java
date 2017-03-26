@@ -10,6 +10,7 @@ import com.bookingsample.inventory.web.RestException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,5 +62,10 @@ public class InventoryServiceImp implements InventoryService {
         r.setName(roomDTO.getName());
         r.setDescription(roomDTO.getDescription());
         return r;
+    }
+
+    @Override
+    public void deleteRoom(long id) {
+        rooms.removeIf(o->o.getId() == id);
     }
 }

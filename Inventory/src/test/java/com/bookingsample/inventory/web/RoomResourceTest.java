@@ -57,4 +57,11 @@ public class RoomResourceTest {
         assertThat(resp.getError().errorCode , is(RestException.UNEXPECTED_ERROR));
     }
     
+    @Test public void shouldDeleteGivenRoom()
+    {
+        long id = 1;
+        roomResource.deleteRoom(id);
+        verify(service).deleteRoom(id);
+    }
+    
 }

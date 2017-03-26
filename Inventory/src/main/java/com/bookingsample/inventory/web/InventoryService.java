@@ -24,4 +24,6 @@ public interface InventoryService {
     RoomCategory getCategory(long categoryID);
 
     Room updateRoom(long roomId, RoomDTO roomDTO);
+
+    void deleteRoom(long id);
 }

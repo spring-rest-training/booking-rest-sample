@@ -91,4 +91,13 @@ public class RoomResource {
         inventoryService.addRoom(room);
         return room;
     }
+
+    @RequestMapping(method = RequestMethod.DELETE , value = "/{roomId}")
+    public ApiResponse deleteRoom(@PathVariable long roomId)
+    {
+        return invokeSafe(o->{
+            inventoryService.deleteRoom(roomId);
+            return ApiResponse.success();
+        });
+    }
 }

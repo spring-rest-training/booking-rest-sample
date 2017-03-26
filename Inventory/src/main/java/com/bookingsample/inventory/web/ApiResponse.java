@@ -31,6 +31,10 @@ public class ApiResponse {
         return response;
     }
 
+    public static ApiResponse success() {
+        return success(null);
+    }
+
     public static enum STATUS
     {
         OK , ERROR
